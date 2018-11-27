@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 
 const TodoForm = (props) => {
-  console.log(props)
+  console.log('props',props)
   return (
     <form onSubmit={props.handleSubmit}>
       {/* Task Name */}
@@ -9,7 +9,7 @@ const TodoForm = (props) => {
       <input
         type="text"
         name="taskName"
-        value={props.state.taskName}
+        value={props.taskName}
         onChange={props.handleChange}
       />
       {/* Assignee */}
@@ -17,7 +17,7 @@ const TodoForm = (props) => {
       <input
         type="text"
         name="assignee"
-        value={props.state.assignee}
+        value={props.assignee}
         onChange={props.handleChange}
       />
       {/* Submit Button */}
