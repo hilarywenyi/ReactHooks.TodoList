@@ -17,9 +17,19 @@ export default class Todos extends Component {
     this.setState({todos: res.data})
   }
 
-  addTodo(event) {
+  addTodo(todo) {
     this.setState({
-      [event.target.name]: event.target.value
+      //[event.target.name]: event.target.value
+      todos: [...this.state.todos,todo]
+    })
+  }
+
+  async removedTodo(todoId){
+    console.log('todoId', todoId)
+    const res = await axios.delete('/api/todos', todoId)
+    res.send()
+    this.setState({
+      todos: this.state.todos.filter(todo => todo.id !== todoId )
     })
   }
 
@@ -28,7 +38,7 @@ export default class Todos extends Component {
       <div id='todos'>
         <CreateTodo addTodo={this.addTodo} />
         {
-          this.state.todos.map(todo => <Todo todo={todo} key={todo.id} />)
+          this.state.todos.map(todo => <Todo todo={todo} key={todo.id} removedTodo = {this.removedTodo}/>)
         }
       </div>
     )

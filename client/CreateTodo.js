@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Axios from 'axios';
+import { runInNewContext } from 'vm';
 
 export default class CreateTodo extends Component {
 
@@ -21,9 +22,14 @@ export default class CreateTodo extends Component {
 
   async handleSubmit(event) {
     event.preventDefault()
-    const res = await Axios.post('./api/todos', {taskName: event.target.taskName.value, assignee: event.target.assignee.value})
-    this.props.addTodo(event)
-    console.log(res.data)
+    try{
+    const res = await Axios.post('/api/todos', {taskName: event.target.taskName.value, assignee: event.target.assignee.value})
+    console.log('whata res.data in handleSubmit', res.data)
+    this.props.addTodo(res.data)
+    }catch(error){
+      console.error(error)
+    }
+    
   }
 
   render () {
